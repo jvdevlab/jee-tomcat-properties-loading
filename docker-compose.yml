@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  # docker compose up builder
+  builder:
+    image: maven:3.6.3-adoptopenjdk-15
+    volumes:
+      - maven-repo:/root/.m2
+      - ${pwd:-.}:/app
+      - ${pwd:-.}/target:/app/target
+    working_dir: /app
+    command: mvn clean package -Dmaven.clean.failOnError=false
+
+  # docker compose up app
+  # http://localhost:9090/app
+  app:
+    build: ./
+    volumes:
+      - ${pwd:-.}/logs:/usr/local/tomcat/logs
+    ports:
+      - 9090:8080
+
+volumes:
+  maven-repo:
