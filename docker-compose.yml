@@ -1,8 +1,8 @@
 version: "3"
 
 services:
-  # docker compose up builder
-  builder:
+  # docker compose up build
+  build:
     image: maven:3.6.3-adoptopenjdk-15
     volumes:
       - maven-repo:/root/.m2
